@@ -5,7 +5,6 @@
 requisitos: 
 - Python 3
 - pip
-- pygame (dependência)
 
 ```bash
 pip install -r requirements.txt
@@ -19,6 +18,5 @@ python main.py
 ```bash
 git clone https://github.com/victor-marquesp/poli-escape.git
 cd poli-scape/bin
-main.exe
+PoliEscape.exe
 ```
-
