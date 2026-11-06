@@ -6,11 +6,40 @@ import os
 import textwrap
 import time
 
+import sys
+
 WIDTH = 72
 FAST = os.environ.get("POLIMEROS_FAST") == "1"
 
-if os.name == "nt":  # habilita sequências ANSI no terminal do Windows
+# ==========================================
+# CONFIGURAÇÃO DO TERMINAL
+# ==========================================
+
+if os.name == "nt":
+    # Habilita suporte a sequências ANSI
     os.system("")
+
+    # Configura o terminal Windows para UTF-8
+    try:
+        import ctypes
+
+        ctypes.windll.kernel32.SetConsoleOutputCP(65001)
+        ctypes.windll.kernel32.SetConsoleCP(65001)
+
+    except (AttributeError, OSError):
+        pass
+
+
+# Configura os streams do Python para UTF-8
+for stream in (sys.stdout, sys.stderr, sys.stdin):
+    if stream is not None and hasattr(stream, "reconfigure"):
+        try:
+            stream.reconfigure(
+                encoding="utf-8",
+                errors="replace"
+            )
+        except (OSError, ValueError):
+            pass
 
 
 class Color:
